@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Store</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+        }
+        .container {
+            max-width: 950px;
+            margin: 50px auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            padding: 40px 30px 30px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            color: #2575fc;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            color: #444;
+            font-size: 1.2rem;
+            margin-bottom: 0;
+        }
+        .laptop-images {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            margin: 38px 0 30px 0;
+        }
+        .laptop-images img {
+            width: 200px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 4px 16px rgba(37,117,252,0.10);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .laptop-images img:hover {
+            transform: scale(1.07) rotate(-2deg);
+            box-shadow: 0 8px 32px rgba(37,117,252,0.18);
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 35px;
+        }
+        .nav a {
+            text-decoration: none;
+            background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+            color: #fff;
+            padding: 15px 38px;
+            border-radius: 8px;
+            font-size: 1.15rem;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(37,117,252,0.10);
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            letter-spacing: 1px;
+        }
+        .nav a:hover {
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 18px rgba(37,117,252,0.18);
+        }
+        @media (max-width: 800px) {
+            .container { padding: 18px 5px; }
+            .laptop-images { flex-direction: column; align-items: center; gap: 18px; }
+            .laptop-images img { width: 90vw; max-width: 320px; height: 110px; }
+            .nav { flex-direction: column; gap: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Welcome to Laptop Store</h1>
+            <p>Find the best laptops, compare features, and predict prices instantly!</p>
+        </div>
+        <div class="laptop-images">
+            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80" alt="Laptop 1">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Laptop 2">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Laptop 3">
+        </div>
+        <div class="nav">
+            <a href="/project">Product Search</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+    </div>
+</body>
+</html>

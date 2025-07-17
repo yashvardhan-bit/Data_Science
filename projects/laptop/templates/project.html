@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Search</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(120deg, #43cea2 0%, #185a9d 100%);
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: rgba(255,255,255,0.97);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            padding: 38px 28px 28px 28px;
+            position: relative;
+        }
+        h2 {
+            text-align: center;
+            color: #185a9d;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: space-between;
+        }
+        label {
+            width: 180px;
+            color: #185a9d;
+            font-weight: 500;
+        }
+        select, input {
+            flex: 1;
+            padding: 7px 10px;
+            border-radius: 5px;
+            border: 1px solid #b2bec3;
+            font-size: 1rem;
+            background: #f7fafd;
+        }
+        .form-row {
+            display: flex;
+            width: 100%;
+            align-items: center;
+        }
+        button {
+            margin: 28px auto 0 auto;
+            display: block;
+            padding: 12px 38px;
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(24,90,157,0.10);
+            transition: background 0.2s, transform 0.2s;
+            letter-spacing: 1px;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
+            transform: translateY(-2px) scale(1.04);
+        }
+        .result {
+            margin-top: 32px;
+            text-align: center;
+            background: linear-gradient(90deg, #e0eafc 0%, #cfdef3 100%);
+            padding: 22px 0 18px 0;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            color: #185a9d;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(24,90,157,0.08);
+        }
+        a {
+            display: block;
+            margin-top: 28px;
+            text-align: center;
+            color: #185a9d;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #43cea2;
+        }
+        @media (max-width: 800px) {
+            .container { padding: 12px 2vw; }
+            .form-row { flex-direction: column; align-items: flex-start; }
+            label { width: 100%; margin-bottom: 4px; }
+            select, input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Product Search</h2>
+        <form method="post">
+            <div class="form-row"><label for="brand">Brand:</label>
+                <select id="brand" name="brand" required>
+                    <option>ASUS</option>
+                    <option>Lenovo</option>
+                    <option>acer</option>
+                    <option>Avita</option>
+                    <option>HP</option>
+                    <option>DELL</option>
+                    <option>MSI</option>
+                    <option>APPLE</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="processor_brand">Processor Brand:</label>
+                <select id="processor_brand" name="processor_brand" required>
+                    <option>Intel</option>
+                    <option>AMD</option>
+                    <option>M1</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="processor_name">Processor Name:</label>
+                <select id="processor_name" name="processor_name" required>
+                    <option>Core i3</option>
+                    <option>Core i5</option>
+                    <option>Celeron Dual</option>
+                    <option>Ryzen 5</option>
+                    <option>Core i7</option>
+                    <option>Core i9</option>
+                    <option>M1</option>
+                    <option>Pentium Quad</option>
+                    <option>Ryzen 3</option>
+                    <option>Ryzen 7</option>
+                    <option>Ryzen 9</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="processor_gnrtn">Processor Generation:</label>
+                <select id="processor_gnrtn" name="processor_gnrtn" required>
+                    <option>10th</option>
+                    <option>11th</option>
+                    <option>7th</option>
+                    <option>8th</option>
+                    <option>9th</option>
+                    <option>4th</option>
+                    <option>12th</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="ram_gb">RAM (GB):</label>
+                <select id="ram_gb" name="ram_gb" required>
+                    <option>4 GB</option>
+                    <option>8 GB</option>
+                    <option>16 GB</option>
+                    <option>32 GB</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="ram_type">RAM Type:</label>
+                <select id="ram_type" name="ram_type" required>
+                    <option>DDR4</option>
+                    <option>LPDDR4</option>
+                    <option>LPDDR4X</option>
+                    <option>DDR5</option>
+                    <option>DDR3</option>
+                    <option>LPDDR3</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="ssd">SSD (GB):</label>
+                <select id="ssd" name="ssd" required>
+                    <option>0 GB</option>
+                    <option>128 GB</option>
+                    <option>256 GB</option>
+                    <option>512 GB</option>
+                    <option>1024 GB</option>
+                    <option>2048 GB</option>
+                    <option>3072 GB</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="hdd">HDD (GB):</label>
+                <select id="hdd" name="hdd" required>
+                    <option>0 GB</option>
+                    <option>512 GB</option>
+                    <option>1024 GB</option>
+                    <option>2048 GB</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="os">OS:</label>
+                <select id="os" name="os" required>
+                    <option>Windows</option>
+                    <option>DOS</option>
+                    <option>Mac</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="os_bit">OS Bit:</label>
+                <select id="os_bit" name="os_bit" required>
+                    <option>64-bit</option>
+                    <option>32-bit</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="graphic_card_gb">Graphic Card (GB):</label>
+                <select id="graphic_card_gb" name="graphic_card_gb" required>
+                    <option>0 GB</option>
+                    <option>2 GB</option>
+                    <option>4 GB</option>
+                    <option>6 GB</option>
+                    <option>8 GB</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="weight">Type:</label>
+                <select id="weight" name="weight" required>
+                    <option>Casual</option>
+                    <option>ThinNlight</option>
+                    <option>Gaming</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="warranty">Warranty:</label>
+                <select id="warranty" name="warranty" required>
+                    <option>No warranty</option>
+                    <option>1 year</option>
+                    <option>2 years</option>
+                    <option>3 years</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="Touchscreen">Touchscreen:</label>
+                <select id="Touchscreen" name="Touchscreen" required>
+                    <option>No</option>
+                    <option>Yes</option>
+                </select>
+            </div>
+            <div class="form-row"><label for="msoffice">MS Office:</label>
+                <select id="msoffice" name="msoffice" required>
+                    <option>No</option>
+                    <option>Yes</option>
+                </select>
+            </div>
+            <button type="submit">Predict Price</button>
+        </form>
+        {% if price %}
+        <div class="result">
+            <strong>Price Predict:</strong> ₹{{ price }}
+        </div>
+        {% endif %}
+        <a href="/">Back to Home</a>
+    </div>
+</body>
+</html>
