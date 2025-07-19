@@ -59,11 +59,10 @@ def predict():
         msoffice_code = msoffice_dict.get(msoffice, 0)
         warranty_code = warranty_dict.get(warranty, 0)
 
-        missing_feature = 0  # Placeholder for the 15th feature
-        lst = [[brand_code, processor_brand_code, processor_name_code, processor_gnrtn_code, ram_gb_num, ram_type_code, ssd_num, hdd_num, os_code, os_bit_code, graphic_card_gb_num, touchscreen_code, msoffice_code, warranty_code, missing_feature]]
+        missing_feature = 0 
+        lst = [[brand_code, processor_brand_code, processor_name_code, processor_gnrtn_code, ram_gb_num,ssd_num, hdd_num, os_code,graphic_card_gb_num, touchscreen_code, warranty_code]]
         prediction = model.predict(lst)
         rounded_prediction = round(prediction[0], 2)
-        print("prediction >>>>>>>>>>", prediction)
         search_history.append({
             'brand': brand,
             'processor_brand': processor_brand,
@@ -81,6 +80,8 @@ def predict():
             'warranty': warranty,
             'prediction': rounded_prediction
         })
+        print("prediction >>>>>>>>>>", prediction,brand,processor_brand,processor_name,processor_gnrtn,ram_gb,ram_type,ssd,hdd,os_,os_bit,graphic_card_gb,Touchscreen,msoffice,warranty)
+
         return render_template('project.html', prediction=rounded_prediction,
             brand=brand,
             processor_brand=processor_brand,

@@ -238,9 +238,9 @@
             </div>
             <button type="submit">Predict Price</button>
         </form>
-        {% if price %}
+        {% if prediction %}
         <div class="result">
-            <strong>Price Predict:</strong> ₹{{ price }}
+            <strong>Price Predict:</strong> ₹{{ prediction }}
         </div>
         {% endif %}
         <a href="/">Back to Home</a>
