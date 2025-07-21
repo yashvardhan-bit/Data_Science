@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insurance Prediction</title>
+    <style>
+        body {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+            padding: 32px 40px 40px 40px;
+        }
+        h1 {
+            text-align: center;
+            color: #ff6f61;
+            margin-bottom: 16px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        label {
+            font-weight: 500;
+            color: #333;
+        }
+        input, select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+        button {
+            background: linear-gradient(90deg, #ff6f61 0%, #fda085 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #fda085 0%, #ff6f61 100%);
+        }
+        .prediction {
+            margin-top: 24px;
+            padding: 16px;
+            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+            color: #222;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(67,233,123,0.12);
+        }
+        nav {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        nav a {
+            color: #ff6f61;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: #38f9d7;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/about">About</a> |
+        <a href="/contact">Contact</a> |
+        <a href="/project">Project</a>
+    </nav>
+    <div class="container">
+        <h1>Insurance Cost Prediction</h1>
+        <form method="post" action="/predict">
+            <label>Age:
+                <input type="number" name="age" step="1" min="0" required>
+            </label>
+            <label>BMI:
+                <input type="number" name="bmi" step="0.1" min="0" required>
+            </label>
+            <label>Children:
+                <input type="number" name="children" step="1" min="0" required>
+            </label>
+            <label>Smoker:
+                <select name="smoker">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </label>
+            <!-- Add more fields as needed -->
+            <button type="submit">Predict</button>
+        </form>
+        {% if prediction is not none %}
+            <div class="prediction">
+                Prediction: {{ prediction }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html> 

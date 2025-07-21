@@ -1,7 +1,8 @@
 from flask import Flask , render_template, request,url_for
 import joblib
-model = joblib.load('model.joblib')
-app = Flask(__name__)
+import os
+model = joblib.load('bikes/model.joblib')
+app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'))
 
 @app.route("/")
 def home():
@@ -72,5 +73,5 @@ def predict():
     
 
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     app.run(debug = True)

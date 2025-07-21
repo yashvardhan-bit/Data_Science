@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insurance Model Homepage</title>
+    <style>
+        body {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 80px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+            padding: 40px 48px 48px 48px;
+            text-align: center;
+        }
+        h1 {
+            color: #ff6f61;
+            margin-bottom: 12px;
+        }
+        p {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+        nav {
+            margin-bottom: 32px;
+        }
+        nav a {
+            color: #ff6f61;
+            text-decoration: none;
+            margin: 0 18px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: #38f9d7;
+        }
+        .cta {
+            margin-top: 32px;
+        }
+        .cta a {
+            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(67,233,123,0.12);
+            transition: background 0.2s;
+        }
+        .cta a:hover {
+            background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='insurance_icon.png') }}" alt="Insurance Icon" style="width:100%;max-width:160px;border-radius:12px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,0.10);">
+        <h1>Welcome to the Insurance Prediction Model</h1>
+        <p>Predict your insurance costs easily using our machine learning model. Use the navigation below to learn more, contact us, or get your prediction.</p>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/predict">Prediction</a>
+        </nav>
+        <div class="cta">
+            <a href="/predict">Start Prediction</a>
+        </div>
+    </div>
+</body>
+</html> 

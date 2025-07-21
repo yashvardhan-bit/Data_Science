@@ -10,31 +10,30 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+            background: #e3f2fd; /* sky blue background */
         }
         .container {
             max-width: 950px;
             margin: 50px auto;
-            background: rgba(255,255,255,0.95);
-            border-radius: 18px;
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px 0 rgba(33, 150, 243, 0.08);
             padding: 40px 30px 30px 30px;
             position: relative;
-            overflow: hidden;
         }
         .hero {
             text-align: center;
             margin-bottom: 30px;
         }
         .hero h1 {
-            font-size: 2.8rem;
-            color: #2575fc;
+            font-size: 2.5rem;
+            color: #1976d2; /* deep sky blue */
             margin-bottom: 10px;
             letter-spacing: 2px;
         }
         .hero p {
-            color: #444;
-            font-size: 1.2rem;
+            color: #1565c0;
+            font-size: 1.1rem;
             margin-bottom: 0;
         }
         .laptop-images {
@@ -47,15 +46,11 @@
             width: 200px;
             height: 130px;
             object-fit: cover;
-            border-radius: 12px;
-            border: 2px solid #e0e0e0;
-            box-shadow: 0 4px 16px rgba(37,117,252,0.10);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            border: 2px solid #90caf9;
+            /* Remove box-shadow and animation */
         }
-        .laptop-images img:hover {
-            transform: scale(1.07) rotate(-2deg);
-            box-shadow: 0 8px 32px rgba(37,117,252,0.18);
-        }
+        /* Remove hover animation */
         .nav {
             display: flex;
             justify-content: center;
@@ -64,20 +59,20 @@
         }
         .nav a {
             text-decoration: none;
-            background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
-            color: #fff;
-            padding: 15px 38px;
-            border-radius: 8px;
-            font-size: 1.15rem;
+            background: #90caf9;
+            color: #0d47a1;
+            padding: 13px 32px;
+            border-radius: 7px;
+            font-size: 1.1rem;
             font-weight: 500;
-            box-shadow: 0 2px 8px rgba(37,117,252,0.10);
-            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: none;
             letter-spacing: 1px;
+            transition: background 0.2s;
         }
         .nav a:hover {
-            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 18px rgba(37,117,252,0.18);
+            background: #64b5f6;
+            color: #0d47a1;
+            /* Remove transform and box-shadow */
         }
         @media (max-width: 800px) {
             .container { padding: 18px 5px; }
@@ -94,9 +89,9 @@
             <p>Find the best laptops, compare features, and predict prices instantly!</p>
         </div>
         <div class="laptop-images">
-            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80" alt="Laptop 1">
-            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Laptop 2">
-            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Laptop 3">
+            <img src="https://images.pexels.com/photos/18105/pexels-photo.jpg?auto=compress&w=400&q=80" alt="Modern Laptop 1">
+            <img src="https://images.pexels.com/photos/374074/pexels-photo-374074.jpeg?auto=compress&w=400&q=80" alt="Product Search Feature"> <!-- Person searching -->
+            <img src="https://images.pexels.com/photos/267569/pexels-photo-267569.jpeg?auto=compress&w=400&q=80" alt="Contact Feature"> <!-- Envelope/contact -->
         </div>
         <div class="nav">
             <a href="/project">Product Search</a>
