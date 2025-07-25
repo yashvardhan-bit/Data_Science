@@ -1,17 +1,300 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Project - Depression Prediction</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression Prediction Form</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3062/3062634.png">
+    <style>
+        :root {
+            --primary: #1976d2;
+            --secondary: #43cea2;
+            --accent: #185a9d;
+            --bg: #e3f2fd;
+            --white: #fff;
+            --shadow: 0 2px 8px 0 rgba(33, 150, 243, 0.08);
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary) 60%, var(--secondary) 100%);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            height: 60px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 0.8s 0.1s forwards;
+        }
+        .navbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .navbar img {
+            width: 36px;
+            height: 36px;
+            transition: transform 0.3s;
+        }
+        .navbar img:hover {
+            transform: scale(1.08) rotate(-6deg);
+        }
+        .navbar .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+        .navbar .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.08rem;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .navbar .nav-links a:hover {
+            color: #b2ebf2;
+            transform: translateY(-2px) scale(1.08);
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto 0 auto;
+            background: var(--white);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            padding: 38px 28px 28px 28px;
+            position: relative;
+            flex: 1;
+            opacity: 0;
+            animation: fadeIn 1.1s 0.2s forwards;
+        }
+        h2 {
+            text-align: center;
+            color: var(--accent);
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroFadeIn 1.1s 0.4s forwards;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: space-between;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroFadeIn 1.1s 0.5s forwards;
+        }
+        label {
+            width: 220px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+        select, input {
+            flex: 1;
+            padding: 7px 10px;
+            border-radius: 5px;
+            border: 1px solid #b2bec3;
+            font-size: 1rem;
+            background: #f7fafd;
+            transition: border 0.2s, box-shadow 0.2s;
+        }
+        select:focus, input:focus {
+            border: 1.5px solid var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px #90caf9;
+        }
+        .form-row {
+            display: flex;
+            width: 100%;
+            align-items: center;
+        }
+        button {
+            margin: 28px auto 0 auto;
+            display: block;
+            padding: 12px 38px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(24,90,157,0.10);
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 4px 16px rgba(24,90,157,0.18);
+        }
+        .result {
+            margin-top: 32px;
+            text-align: center;
+            background: linear-gradient(90deg, #e0eafc 0%, #cfdef3 100%);
+            padding: 22px 0 18px 0;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            color: var(--accent);
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(24,90,157,0.08);
+            opacity: 0;
+            animation: fadeIn 1.1s 0.7s forwards;
+        }
+        a.back {
+            display: block;
+            margin-top: 28px;
+            text-align: center;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: color 0.2s;
+        }
+        a.back:hover {
+            color: var(--secondary);
+        }
+        .footer {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 18px 0 10px 0;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-top: 40px;
+            opacity: 0;
+            animation: fadeIn 1.2s 0.5s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes heroFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 800px) {
+            .container { padding: 12px 2vw; }
+            .navbar { flex-direction: column; height: auto; padding: 10px 0; }
+            .navbar .nav-links { gap: 12px; }
+            h2 { font-size: 1.3rem; }
+            .form-row { flex-direction: column; align-items: flex-start; }
+            label { width: 100%; margin-bottom: 4px; }
+            select, input { width: 100%; }
+        }
+    </style>
 </head>
 <body>
-    <h2>Project Details</h2>
-    <ul>
-        <li>Machine Learning Model: Random Forest Classifier (or similar)</li>
-        <li>Framework: Flask (Python)</li>
-        <li>Frontend: HTML forms (Jinja2 templates)</li>
-        <li>Features: Predicts history of mental illness from survey data</li>
-        <li>Data: Cleaned and encoded survey responses</li>
-    </ul>
-    <a href="/">Home</a>
+    <nav class="navbar">
+        <div class="brand">
+            <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png" alt="Logo">
+            Depression Prediction
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/project">Prediction</a>
+            <a href="/history">History</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>Depression Prediction Form</h2>
+        <form method="post">
+            <div class="form-row"><label for="Age">Age:</label>
+                <input type="number" id="Age" name="Age" min="0" max="120" placeholder="Enter value" required></div>
+            <div class="form-row"><label for="Marital Status">Marital Status:</label>
+                <select id="Marital Status" name="Marital Status" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Married</option>
+                    <option value="2">Widowed</option>
+                    <option value="3">Single</option>
+                    <option value="4">Divorced</option>
+                </select></div>
+            <div class="form-row"><label for="Education Level">Education Level:</label>
+                <select id="Education Level" name="Education Level" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Bachelor's Degree</option>
+                    <option value="2">High School</option>
+                    <option value="3">Master's Degree</option>
+                    <option value="4">Associate Degree</option>
+                    <option value="5">PhD</option>
+                </select></div>
+            <div class="form-row"><label for="Number of Children">Number of Children:</label>
+                <input type="number" id="Number of Children" name="Number of Children" min="0" max="10" placeholder="Enter value" required></div>
+            <div class="form-row"><label for="Smoking Status">Smoking Status:</label>
+                <select id="Smoking Status" name="Smoking Status" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Non-smoker</option>
+                    <option value="2">Former</option>
+                    <option value="3">Current</option>
+                </select></div>
+            <div class="form-row"><label for="Physical Activity Level">Physical Activity Level:</label>
+                <select id="Physical Activity Level" name="Physical Activity Level" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Active</option>
+                    <option value="2">Sedentary</option>
+                    <option value="3">Moderate</option>
+                </select></div>
+            <div class="form-row"><label for="Employment Status">Employment Status:</label>
+                <select id="Employment Status" name="Employment Status" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Unemployed</option>
+                    <option value="2">Employed</option>
+                </select></div>
+            <div class="form-row"><label for="Income">Income:</label>
+                <input type="number" id="Income" name="Income" min="0" step="0.01" placeholder="Enter value" required></div>
+            <div class="form-row"><label for="Alcohol Consumption">Alcohol Consumption:</label>
+                <select id="Alcohol Consumption" name="Alcohol Consumption" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Moderate</option>
+                    <option value="2">High</option>
+                    <option value="3">Low</option>
+                </select></div>
+            <div class="form-row"><label for="History of Substance Abuse">History of Substance Abuse:</label>
+                <select id="History of Substance Abuse" name="History of Substance Abuse" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select></div>
+            <div class="form-row"><label for="Family History of Depression">Family History of Depression:</label>
+                <select id="Family History of Depression" name="Family History of Depression" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select></div>
+            <div class="form-row"><label for="Chronic Medical Conditions">Chronic Medical Conditions:</label>
+                <select id="Chronic Medical Conditions" name="Chronic Medical Conditions" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select></div>
+            <button type="submit">Predict</button>
+        </form>
+        {% if prediction %}
+        <div class="result">
+            <strong>Prediction:</strong> {{ prediction }}
+        </div>
+        {% endif %}
+        <a href="/" class="back">Back to Home</a>
+    </div>
+    <footer class="footer">
+        &copy; 2024 Depression Prediction Project. All rights reserved.
+    </footer>
 </body>
 </html>

@@ -1,11 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Prediction History - Depression Prediction</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3062/3062634.png">
+    <style>
+        :root {
+            --primary: #1976d2;
+            --secondary: #43cea2;
+            --accent: #185a9d;
+            --bg: #e3f2fd;
+            --white: #fff;
+            --shadow: 0 2px 8px 0 rgba(33, 150, 243, 0.08);
+        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; }
+        .navbar { width: 100%; background: linear-gradient(90deg, var(--primary) 60%, var(--secondary) 100%); color: var(--white); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 60px; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 10; opacity: 0; animation: fadeIn 0.8s 0.1s forwards; }
+        .navbar .brand { display: flex; align-items: center; gap: 12px; font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; }
+        .navbar img { width: 36px; height: 36px; transition: transform 0.3s; }
+        .navbar img:hover { transform: scale(1.08) rotate(-6deg); }
+        .navbar .nav-links { display: flex; gap: 28px; }
+        .navbar .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; font-size: 1.08rem; transition: color 0.2s, transform 0.2s; }
+        .navbar .nav-links a:hover { color: #b2ebf2; transform: translateY(-2px) scale(1.08); }
+        .container { max-width: 1000px; margin: 50px auto 0 auto; background: var(--white); border-radius: 18px; box-shadow: var(--shadow); padding: 40px 30px 30px 30px; flex: 1; opacity: 0; animation: fadeIn 1.1s 0.2s forwards; }
+        h2 { color: var(--primary); text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; border-radius: 10px; overflow: hidden; opacity: 0; animation: fadeIn 1.1s 0.4s forwards; }
+        th, td { border: 1px solid #90caf9; padding: 10px; text-align: center; transition: background 0.2s, color 0.2s; }
+        th { background: #90caf9; color: #0d47a1; }
+        tr:nth-child(even) { background: #f7fafd; }
+        tr:hover { background: #e3f2fd; }
+        a.back { color: var(--accent); text-decoration: none; display: block; margin-top: 28px; text-align: center; transition: color 0.2s; }
+        a.back:hover { color: var(--secondary); }
+        .empty { color: #888; text-align: center; margin-top: 40px; }
+        .footer { width: 100%; background: var(--primary); color: var(--white); text-align: center; padding: 18px 0 10px 0; font-size: 1rem; letter-spacing: 1px; margin-top: 40px; opacity: 0; animation: fadeIn 1.2s 0.5s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        @media (max-width: 800px) { .container { padding: 12px 2vw; } table, th, td { font-size: 0.95rem; } .navbar { flex-direction: column; height: auto; padding: 10px 0; } .navbar .nav-links { gap: 12px; } }
+    </style>
 </head>
 <body>
-    <h2>Prediction History</h2>
-    <p>This feature will show the history of predictions made in this session (not yet implemented).</p>
-    <a href="/">Home</a>
+    <nav class="navbar">
+        <div class="brand">
+            <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png" alt="Logo">
+            Depression Prediction
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/project">Prediction</a>
+            <a href="/history">History</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>Prediction History</h2>
+        {% if history and history|length > 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Age</th>
+                    <th>Marital Status</th>
+                    <th>Education Level</th>
+                    <th>Number of Children</th>
+                    <th>Smoking Status</th>
+                    <th>Physical Activity</th>
+                    <th>Employment</th>
+                    <th>Income</th>
+                    <th>Alcohol</th>
+                    <th>Substance Abuse</th>
+                    <th>Family Depression</th>
+                    <th>Chronic Medical</th>
+                    <th>Prediction</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in history %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    {% for val in entry.input %}
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                    <td>{{ entry.prediction }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty">No prediction history yet.</div>
+        {% endif %}
+        <a href="/" class="back">Back to Home</a>
+    </div>
+    <footer class="footer">
+        &copy; 2024 Depression Prediction Project. All rights reserved.
+    </footer>
 </body>
 </html>
