@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - Laptop Price Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .nav {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        .nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(17, 153, 142, 0.2);
+            padding: 50px 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            border-radius: 16px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(17, 153, 142, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo::after {
+            content: "💻";
+            font-size: 32px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a202c;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #4a5568;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .history-container {
+            margin-top: 40px;
+        }
+
+        .history-item {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(17, 153, 142, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .history-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(17, 153, 142, 0.1);
+        }
+
+        .laptop-brand {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a202c;
+        }
+
+        .prediction-price {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+        }
+
+        .spec-icon {
+            font-size: 1.2rem;
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .spec-label {
+            font-weight: 500;
+            color: #2d3748;
+            font-size: 0.9rem;
+            margin-right: 5px;
+        }
+
+        .spec-value {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .timestamp {
+            color: #718096;
+            font-size: 0.85rem;
+            text-align: right;
+            font-style: italic;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #4a5568;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .empty-text {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .clear-btn {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.3);
+            margin-top: 20px;
+        }
+
+        .clear-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .nav {
+                margin-bottom: 20px;
+            }
+            
+            .nav a {
+                margin: 0 8px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .history-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/history">History</a>
+    </nav>
+    
+    <div class="container">
+        <div class="logo"></div>
+        <h1>Prediction History</h1>
+        <p class="subtitle">Your previous predictions.</p>
+        
+        <div class="history-container">
+            {% if history %}
+                {% for item in history %}
+                <div class="history-item">
+                    <div class="history-header">
+                        <div class="laptop-brand">{{ item.brand }}</div>
+                        <div class="prediction-price">₹{{ "{:,.2f}".format(item.prediction) }}</div>
+                    </div>
+                    
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <div class="spec-icon">🔧</div>
+                            <div class="spec-label">Processor:</div>
+                            <div class="spec-value">{{ item.processor_brand }} {{ item.processor_name }} ({{ item.processor_gnrtn }})</div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon">💾</div>
+                            <div class="spec-label">RAM:</div>
+                            <div class="spec-value">{{ item.ram_gb }} {{ item.ram_type }}</div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon">💿</div>
+                            <div class="spec-label">Storage:</div>
+                            <div class="spec-value">SSD: {{ item.ssd }}, HDD: {{ item.hdd }}</div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon">🖥️</div>
+                            <div class="spec-label">OS:</div>
+                            <div class="spec-value">{{ item.os }} {{ item.os_bit }}-bit</div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon">🎮</div>
+                            <div class="spec-label">Graphics:</div>
+                            <div class="spec-value">{{ item.graphic_card_gb }}</div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon">👆</div>
+                            <div class="spec-label">Touchscreen:</div>
+                            <div class="spec-value">{{ item.Touchscreen }}</div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon">📄</div>
+                            <div class="spec-label">MS Office:</div>
+                            <div class="spec-value">{{ item.msoffice }}</div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon">🛡️</div>
+                            <div class="spec-label">Warranty:</div>
+                            <div class="spec-value">{{ item.warranty }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timestamp">Predicted on: {{ loop.index }}</div>
+                </div>
+                {% endfor %}
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="clear-btn" onclick="clearHistory()">Clear History</button>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">📊</div>
+                    <div class="empty-title">No Predictions Yet</div>
+                    <div class="empty-text">Start making laptop price predictions to see your history here.</div>
+                    <a href="/project" class="clear-btn" style="text-decoration: none; display: inline-block; margin-top: 20px;">Start Prediction</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function clearHistory() {
+            if (confirm('Are you sure you want to clear all prediction history?')) {
+                // This would typically send a request to clear history
+                // For now, we'll just reload the page
+                window.location.reload();
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -2,119 +2,329 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Insurance Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Prediction - Get Your Estimate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .nav {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        .nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         .container {
-            max-width: 500px;
-            margin: 60px auto;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-            padding: 32px 40px 40px 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            padding: 50px 40px;
+            animation: fadeInUp 0.8s ease-out;
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
         h1 {
             text-align: center;
-            color: #ff6f61;
-            margin-bottom: 16px;
+            color: #2d3748;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
         }
+
         label {
-            font-weight: 500;
-            color: #333;
+            display: block;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
         }
+
         input, select {
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid #ddd;
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
             font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            transition: all 0.3s ease;
+            outline: none;
         }
-        button {
-            background: linear-gradient(90deg, #ff6f61 0%, #fda085 100%);
-            color: #fff;
+
+        input:focus, select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+            transform: translateY(0);
+        }
+
+        input:hover, select:hover {
+            border-color: #cbd5e0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
             border: none;
-            border-radius: 6px;
-            padding: 12px;
+            border-radius: 12px;
+            padding: 18px;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
         }
-        button:hover {
-            background: linear-gradient(90deg, #fda085 0%, #ff6f61 100%);
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transition: left 0.3s ease;
         }
+
+        .submit-btn:hover::before {
+            left: 0;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
         .prediction {
-            margin-top: 24px;
-            padding: 16px;
-            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
-            color: #222;
-            border-radius: 8px;
-            font-size: 1.2rem;
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border-radius: 16px;
+            font-size: 1.3rem;
             text-align: center;
-            font-weight: bold;
-            box-shadow: 0 2px 8px rgba(67,233,123,0.12);
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(72, 187, 120, 0.3);
+            animation: slideInUp 0.5s ease-out;
         }
-        nav {
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .prediction-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .prediction-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .error {
+            background: linear-gradient(135deg, #f56565, #e53e3e);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .form-info {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
             text-align: center;
-            margin-bottom: 24px;
         }
-        nav a {
-            color: #ff6f61;
-            text-decoration: none;
-            margin: 0 12px;
-            font-weight: 500;
-            transition: color 0.2s;
+
+        .form-info h3 {
+            color: #667eea;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
-        nav a:hover {
-            color: #38f9d7;
+
+        .form-info p {
+            color: #718096;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .nav {
+                margin-bottom: 20px;
+            }
+            
+            .nav a {
+                margin: 0 8px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="/about">About</a> |
-        <a href="/contact">Contact</a> |
-        <a href="/predict">Prediction</a>
+    <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/predict">Predict</a>
     </nav>
+    
     <div class="container">
-        <img src="{{ url_for('static', filename='insurance_icon.png') }}" alt="Insurance Icon" style="width:100%;max-width:160px;border-radius:12px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,0.10);">
+        <img src="{{ url_for('static', filename='insurance_icon.png') }}" alt="Insurance Icon" class="logo">
         <h1>Insurance Cost Prediction</h1>
+        
+        <div class="form-info">
+            <h3>📋 Quick & Easy</h3>
+            <p>Fill in your details below to get an instant insurance cost estimate powered by machine learning.</p>
+        </div>
+        
         <form method="post" action="/predict">
-            <label>Age:
-                <input type="number" name="age" step="1" min="0" required>
-            </label>
-            <label>Sex:
-                <select name="sex">
-                    <option value="0">Female</option>
-                    <option value="1">Male</option>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" step="1" min="18" max="100" required placeholder="Enter your age" value="{{ form_data.age or '' }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="sex">Gender</label>
+                <select id="sex" name="sex" required>
+                    <option value="">Select gender</option>
+                    <option value="0" {% if form_data.sex == '0' %}selected{% endif %}>Female</option>
+                    <option value="1" {% if form_data.sex == '1' %}selected{% endif %}>Male</option>
                 </select>
-            </label>
-            <label>BMI:
-                <input type="number" name="bmi" step="0.1" min="0" required>
-            </label>
-            <label>Children:
-                <input type="number" name="children" step="1" min="0" required>
-            </label>
-            <label>Smoker:
-                <select name="smoker">
-                    <option value="0">No</option>
-                    <option value="1">Yes</option>
+            </div>
+            
+            <div class="form-group">
+                <label for="bmi">BMI (Body Mass Index)</label>
+                <input type="number" id="bmi" name="bmi" step="0.1" min="10" max="50" required placeholder="Enter your BMI" value="{{ form_data.bmi or '' }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="children">Number of Children</label>
+                <input type="number" id="children" name="children" step="1" min="0" max="10" required placeholder="Number of children" value="{{ form_data.children or '' }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="smoker">Smoking Status</label>
+                <select id="smoker" name="smoker" required>
+                    <option value="">Select smoking status</option>
+                    <option value="0" {% if form_data.smoker == '0' %}selected{% endif %}>Non-smoker</option>
+                    <option value="1" {% if form_data.smoker == '1' %}selected{% endif %}>Smoker</option>
                 </select>
-            </label>
-            <button type="submit">Predict</button>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <span>Calculate Insurance Cost →</span>
+            </button>
         </form>
-        {% if prediction is not none %}
+        
+        {% if error %}
+            <div class="prediction error">
+                <span class="prediction-label">Error</span>
+                <div class="prediction-value" style="font-size: 1.1rem;">
+                    {{ error }}
+                </div>
+            </div>
+        {% elif prediction is not none %}
             <div class="prediction">
-                Prediction: {{ prediction }}
+                <span class="prediction-label">Estimated Insurance Cost</span>
+                <div class="prediction-value">
+                    ₹{{ prediction }}
+                </div>
             </div>
         {% endif %}
     </div>

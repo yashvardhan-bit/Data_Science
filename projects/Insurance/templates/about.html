@@ -2,16 +2,267 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About - Insurance Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Insurance Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .nav {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        .nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            padding: 50px 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section h3 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .section p {
+            color: #718096;
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .features-list li {
+            color: #4a5568;
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .nav {
+                margin-bottom: 20px;
+            }
+            
+            .nav a {
+                margin: 0 8px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>About This Project</h1>
-    <p>This is an insurance cost prediction web app using machine learning.</p>
-    <nav>
-        <a href="/">Home</a> |
-        <a href="/about">About</a> |
-        <a href="/contact">Contact</a> |
-        <a href="/predict">Prediction</a>
+    <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/predict">Predict</a>
     </nav>
+    
+    <div class="container">
+        <img src="{{ url_for('static', filename='insurance_icon.png') }}" alt="Insurance Icon" class="logo">
+        <h1>About Insurance Predictor</h1>
+        <p class="subtitle">A cutting-edge machine learning application designed to provide accurate insurance cost predictions using advanced algorithms and comprehensive data analysis.</p>
+        
+        <div class="content">
+            <div class="section">
+                <div class="section-icon">🤖</div>
+                <h3>Machine Learning</h3>
+                <p>Our prediction model uses sophisticated machine learning algorithms trained on extensive insurance datasets to provide accurate cost estimates.</p>
+                <ul class="features-list">
+                    <li>Advanced regression algorithms</li>
+                    <li>Feature engineering optimization</li>
+                    <li>Continuous model improvement</li>
+                    <li>High prediction accuracy</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <div class="section-icon">📊</div>
+                <h3>Data-Driven</h3>
+                <p>Built on comprehensive insurance industry data, our model considers multiple factors that influence insurance costs.</p>
+                <ul class="features-list">
+                    <li>Age and demographic factors</li>
+                    <li>Health indicators (BMI)</li>
+                    <li>Lifestyle choices (smoking)</li>
+                    <li>Family size considerations</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <div class="section-icon">⚡</div>
+                <h3>Instant Results</h3>
+                <p>Get your insurance cost prediction in seconds with our optimized web application.</p>
+                <ul class="features-list">
+                    <li>Real-time calculations</li>
+                    <li>User-friendly interface</li>
+                    <li>Mobile responsive design</li>
+                    <li>Secure data handling</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <div class="section-icon">🛠️</div>
+                <h3>Technology Stack</h3>
+                <p>Built with modern technologies for reliability and performance.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Flask</span>
+                    <span class="tech-tag">Scikit-learn</span>
+                    <span class="tech-tag">HTML/CSS</span>
+                    <span class="tech-tag">JavaScript</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html> 

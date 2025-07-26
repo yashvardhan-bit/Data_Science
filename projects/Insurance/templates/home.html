@@ -2,78 +2,257 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Insurance Model Homepage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Predictor - Smart Cost Estimation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
         .container {
-            max-width: 600px;
-            margin: 80px auto;
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-            padding: 40px 48px 48px 48px;
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            padding: 60px 40px;
             text-align: center;
+            animation: fadeInUp 0.8s ease-out;
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
         h1 {
-            color: #ff6f61;
-            margin-bottom: 12px;
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        p {
-            color: #444;
-            font-size: 1.1rem;
-            margin-bottom: 32px;
-        }
-        nav {
-            margin-bottom: 32px;
-        }
-        nav a {
-            color: #ff6f61;
-            text-decoration: none;
-            margin: 0 18px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: color 0.2s;
-        }
-        nav a:hover {
-            color: #38f9d7;
-        }
-        .cta {
-            margin-top: 32px;
-        }
-        .cta a {
-            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
-            color: #fff;
-            padding: 14px 32px;
-            border-radius: 8px;
-            text-decoration: none;
+
+        .subtitle {
+            color: #718096;
             font-size: 1.2rem;
-            font-weight: bold;
-            box-shadow: 0 2px 8px rgba(67,233,123,0.12);
-            transition: background 0.2s;
+            font-weight: 400;
+            margin-bottom: 40px;
+            line-height: 1.6;
         }
-        .cta a:hover {
-            background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 12px 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav a:hover::before {
+            left: 0;
+        }
+
+        .nav a:hover {
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .cta {
+            margin-top: 40px;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transition: left 0.3s ease;
+        }
+
+        .cta-btn:hover::before {
+            left: 0;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .cta-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature {
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 16px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            color: #2d3748;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: #718096;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .nav {
+                gap: 15px;
+            }
+            
+            .nav a {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="{{ url_for('static', filename='insurance_icon.png') }}" alt="Insurance Icon" style="width:100%;max-width:160px;border-radius:12px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,0.10);">
-        <h1>Welcome to the Insurance Prediction Model</h1>
-        <p>Predict your insurance costs easily using our machine learning model. Use the navigation below to learn more, contact us, or get your prediction.</p>
-        <nav>
+        <img src="{{ url_for('static', filename='insurance_icon.png') }}" alt="Insurance Icon" class="logo">
+        <h1>Insurance Predictor</h1>
+        <p class="subtitle">Get accurate insurance cost predictions using advanced machine learning. Make informed decisions about your coverage with our intelligent prediction model.</p>
+        
+        <nav class="nav">
             <a href="/">Home</a>
             <a href="/about">About</a>
             <a href="/contact">Contact</a>
-            <a href="/predict">Prediction</a>
+            <a href="/predict">Predict</a>
         </nav>
+        
         <div class="cta">
-            <a href="/predict">Start Prediction</a>
+            <a href="/predict" class="cta-btn">
+                <span>Start Prediction →</span>
+            </a>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <h3>AI-Powered</h3>
+                <p>Advanced machine learning algorithms for accurate predictions</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Results</h3>
+                <p>Get your insurance cost estimate in seconds</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <h3>Data-Driven</h3>
+                <p>Based on comprehensive insurance datasets</p>
+            </div>
         </div>
     </div>
 </body>
