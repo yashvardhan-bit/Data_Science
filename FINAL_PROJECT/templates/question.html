@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>InterviewAI - Question {{ current_num }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .main-container { background: white; border-radius: 20px; margin: 50px auto; padding: 40px; max-width: 800px; }
+        .btn-primary { background: linear-gradient(45deg, #4a90e2, #357abd); border: none; border-radius: 25px; padding: 15px 30px; }
+        .evaluation-card { display: none; }
+        .score-circle { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-container">
+            <!-- Progress -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6 class="mb-0">Progress</h6>
+                    <span class="badge bg-primary">{{ current_num }} / {{ total }}</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ (progress * 100) }}%"></div>
+                </div>
+            </div>
+            
+            <!-- Question -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Question {{ current_num }}</h5>
+                        <div>
+                            <span class="badge bg-light text-dark me-2">{{ question.Category }}</span>
+                            <span class="badge bg-warning text-dark">{{ question.Difficulty }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">{{ question.Question }}</h6>
+                    
+                    <form id="answerForm" class="mt-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Your Answer</label>
+                            <textarea class="form-control" id="answer" name="answer" rows="8" required></textarea>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <button type="submit" class="btn btn-primary" id="submitBtn">
+                                    <i class="fas fa-paper-plane"></i> Submit Answer
+                                </button>
+                                <a href="{{ url_for('exit_interview') }}" class="btn btn-danger ms-2" onclick="return confirm('Are you sure you want to exit? Your progress will be lost.')">
+                                    <i class="fas fa-times"></i> Exit Interview
+                                </a>
+                            </div>
+                            <div class="loading" id="loading" style="display: none;">
+                                <span class="spinner-border spinner-border-sm me-2"></span>
+                                Evaluating...
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Evaluation Results -->
+            <div class="card evaluation-card" id="evaluationCard">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-chart-bar"></i> Evaluation Results</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-3 text-center">
+                            <div class="score-circle bg-primary text-white" id="overallScore">0</div>
+                            <small class="text-muted">Overall Score</small>
+                            <div class="mt-1">
+                                <small class="text-muted" id="scoreLevel">-</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h6>Accuracy</h6>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-success" id="accuracyBar" role="progressbar"></div>
+                            </div>
+                            <small id="accuracyScore">0/10</small>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h6>Completeness</h6>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-info" id="completenessBar" role="progressbar"></div>
+                            </div>
+                            <small id="completenessScore">0/10</small>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h6>Clarity</h6>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-warning" id="clarityBar" role="progressbar"></div>
+                            </div>
+                            <small id="clarityScore">0/10</small>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-comment"></i> Feedback</h6>
+                            <p id="feedbackText" class="text-muted"></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-lightbulb"></i> Suggestions</h6>
+                            <p id="suggestionsText" class="text-muted"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button class="btn btn-success" id="nextQuestionBtn" style="display: none;">
+                            <i class="fas fa-arrow-right"></i> Next Question
+                        </button>
+                        <a href="{{ url_for('results') }}" class="btn btn-primary" id="finishInterviewBtn" style="display: none;">
+                            <i class="fas fa-flag-checkered"></i> Finish Interview
+                        </a>
+                        <a href="{{ url_for('exit_interview') }}" class="btn btn-outline-danger ms-2" onclick="return confirm('Are you sure you want to exit? Your progress will be lost.')">
+                            <i class="fas fa-times"></i> Exit Interview
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    document.getElementById('answerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const answer = document.getElementById('answer').value.trim();
+        if (!answer) {
+            alert('Please provide an answer.');
+            return;
+        }
+        
+        document.getElementById('submitBtn').style.display = 'none';
+        document.getElementById('loading').style.display = 'inline-block';
+        
+        fetch('/submit', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'answer=' + encodeURIComponent(answer)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('loading').style.display = 'none';
+            
+            if (data.success) {
+                displayEvaluation(data.evaluation);
+                
+                if (data.next_question) {
+                    document.getElementById('nextQuestionBtn').style.display = 'inline-block';
+                } else {
+                    document.getElementById('finishInterviewBtn').style.display = 'inline-block';
+                }
+            } else {
+                alert('Error: ' + data.error);
+                document.getElementById('submitBtn').style.display = 'inline-block';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred.');
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'inline-block';
+        });
+    });
+    
+    function displayEvaluation(evaluation) {
+        const overallScore = evaluation.score || 0;
+        document.getElementById('overallScore').textContent = overallScore;
+        
+        let scoreLevel = '';
+        if (overallScore >= 9) scoreLevel = 'Excellent';
+        else if (overallScore >= 7) scoreLevel = 'Good';
+        else if (overallScore >= 5) scoreLevel = 'Average';
+        else if (overallScore >= 3) scoreLevel = 'Below Average';
+        else scoreLevel = 'Poor';
+        
+        document.getElementById('scoreLevel').textContent = scoreLevel;
+        
+        document.getElementById('accuracyScore').textContent = (evaluation.accuracy || 0) + '/10';
+        document.getElementById('completenessScore').textContent = (evaluation.completeness || 0) + '/10';
+        document.getElementById('clarityScore').textContent = (evaluation.clarity || 0) + '/10';
+        
+        document.getElementById('accuracyBar').style.width = ((evaluation.accuracy || 0) * 10) + '%';
+        document.getElementById('completenessBar').style.width = ((evaluation.completeness || 0) * 10) + '%';
+        document.getElementById('clarityBar').style.width = ((evaluation.clarity || 0) * 10) + '%';
+        
+        document.getElementById('feedbackText').textContent = evaluation.feedback || 'No feedback available.';
+        document.getElementById('suggestionsText').textContent = evaluation.suggestions || 'No suggestions available.';
+        
+        document.getElementById('evaluationCard').style.display = 'block';
+        document.getElementById('evaluationCard').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    document.getElementById('nextQuestionBtn').addEventListener('click', function() {
+        window.location.reload();
+    });
+    </script>
+</body>
+</html> 
